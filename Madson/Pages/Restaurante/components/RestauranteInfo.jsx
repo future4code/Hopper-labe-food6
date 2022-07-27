@@ -37,7 +37,7 @@ const RestauranteInfo = ({
 						<p>{categoria}</p>
 						<InfoEntrega>
 							<span className='tempo-de-entrega'>{tempoDeEntrega} min</span>
-							<span className='tempo-de-entrega'>Frete: R${frete}</span>
+							<span className='tempo-de-entrega'>Frete: {frete && frete.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span>
 						</InfoEntrega>
 						<p>{endereco}</p>
 					</Typography>
