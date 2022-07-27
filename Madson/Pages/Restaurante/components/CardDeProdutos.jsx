@@ -5,9 +5,9 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 
-const CardDeProdutos = ({ produto }) => {
+const CardDeProdutos = ({ produto, onClick }) => {
 	return (
-		<Card sx={{ display: 'flex' }}>
+			<Card onClick={() => {onClick(produto.id)}} sx={{ display: 'flex' }}>
 			<CardMedia
 				component='img'
 				sx={{ width: 151 }}
@@ -28,7 +28,7 @@ const CardDeProdutos = ({ produto }) => {
 						<p>{produto?.description}</p>
 					</Typography>
 					<Typography component='div' variant='h5'>
-						<p>R${produto?.price}</p>
+						<p>{produto && produto?.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
 					</Typography>
 				</CardContent>
 				<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}></Box>
