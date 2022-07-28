@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
-import Header from "../Components/Header";
 import axios from 'axios';
 import useForm from '../Hooks/useForm'
 import { GlobalContext } from "../Global/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png"
-import { AddressRest, AddressUser, ContainerSignIn, LogoSignin, TextFieldWrapper, TextTitleSignIn, TitleSignIn} from "./Restaurante/StyledLogin";
+import { BoxTextField, ContainerSignIn, LogoSignin, SpamText, TextFields, ButtonSignIn, TextTitleSignIn, TitleSignIn} from "./Restaurante/StyledLogin";
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+
+
+
 
 const Login = () => {
 
@@ -52,17 +53,17 @@ const Login = () => {
                 <TextTitleSignIn>Entrar</TextTitleSignIn> 
             </TitleSignIn>
 
-        </ContainerSignIn>
+        
 
         <Box component="form" onSubmit={onClick}
             sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                '& .MuiTextField-root': { m: 1, width: '20.5rem' },
             }}
             noValidate
             autoComplete="off"
             >
-      <div>
-        <TextField
+      <BoxTextField>
+        <TextFields
           required
           id="outlined-multiline-flexible"
           label="E-mail"
@@ -71,46 +72,33 @@ const Login = () => {
           type="e-mail" 
           name="email" 
           onChange={onChange}
+          fullWidth
         />
 
-        <TextField
+        <TextFields
           required
           id="outlined-required"
           label="Senha"
           defaultValue={form.password}
-          placeholder="Senha"
+          placeholder="Mínino 6 caracteres"
           type="password" 
           name="password" 
           onChange={onChange}
+          fullWidth
         />
         
-        </div>
-            <button>Entrar</button>
+        </BoxTextField>
+
+        <ButtonSignIn variant="contained"disableElevation onClick={() => {navigate("/Home")}}>Entrar</ButtonSignIn>
         </Box>
 
-        {/* <form > */}
-            {/* <input
-                placeholder="Email"
-                type="e-mail" 
-                name="email" 
-                value={form.email}
-                onChange={onChange}/> */}
-            {/* <input 
-                placeholder="Senha"
-                type="password" 
-                name="password" 
-                value={form.password}
-                onChange={onChange}/> <br/> */}
-
-            
-
-        {/* </form> */}
-        <br/>
+       
         
-        <button onClick={() => {navigate("/Cadastro")}}>Cadastro</button>
+        
+        <SpamText onClick={() => {navigate("/Cadastro")}}>Não possui cadastro? Clique Aqui.</SpamText>
 
         
-
+        </ContainerSignIn>
 
 
 
