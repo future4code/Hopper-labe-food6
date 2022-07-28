@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import nega from  "../../img/nega.jpeg"
+
 
 const Produto = styled.div`
 display:flex;

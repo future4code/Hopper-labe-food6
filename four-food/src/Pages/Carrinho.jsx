@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState  } from "react";
 import styled from "styled-components";
 import imgHome from "../img/home.png"
 import imgCarrinho from "../img/carrinho.png"
 import imgPerfil from "../img/perfil.png"
 import NovoProduto from "./components-carrinho/CardProduto";
-import nega from "../img/nega.jpeg"
+import { GlobalContext } from "../Global/GlobalContext";
 import { BoxComprar, EscolhaDePagamento, Linha, Local, Endereco,  Restaurante, Titulo, BarraDoTitulo, ContainerCarrinho, Rua, Tempo, Card, RuaEntrega, Frete, SubTotal, Total, FormaPagamento, Valores, LineGrey, BarraIncon,CarrinhoVazio} from "./components-carrinho/styleCarrinho"
-
+import {useNavigate} from "react-router-dom"
 
 const MainContainer = styled.div`
 height: 100vh;
@@ -22,12 +22,19 @@ justify-content:center;
 const Carrinho = () => {
 
   const [carrinho, setCarrinho] = useState([])
+  const {states , setters } = useContext(GlobalContext)
+ const {pedido} = states 
+ const {setPedido} = setters
 
-
+ const finalizarPedido = (novoPedido) =>{
+    setPedido(...pedido,novoPedido )
+    navigate("/Home")
+ }
+ 
   const AtualizarCarrinho = (novoProduto, quantidade) => {
     const compraJaAdicionada = carrinho.find(compra => compra.id === novoProduto.id)
     if (compraJaAdicionada) {
-      compraJaAdicionada.qtd = compraJaAdicionada.qtd + 1
+      compraJaAdicionada.qtd = compraJaAdicionada.qtd + quantidade
     } else {
       const valorDaCompra = novoProduto.price * quantidade
       const compra = {
@@ -76,7 +83,7 @@ const Carrinho = () => {
       descricao: "cane bovina com alface e queijo aaaaa",
       qtd: 3,
       valor: 30.00,
-      imgUrl: { nega }
+      imgUrl: ""
     }
 
 
@@ -100,6 +107,7 @@ const Carrinho = () => {
 
   let totalDeCompras = somaTotaldeCompras(carrinho, 6.00)
 
+  const navigate = useNavigate()
   return (
 
     <MainContainer>
@@ -141,9 +149,9 @@ const Carrinho = () => {
           </BoxComprar>
           <LineGrey>_________________________________________________</LineGrey>
           <BarraIncon>
-            <img src={imgHome} />
-            <img src={imgCarrinho} />
-            <img src={imgPerfil} />
+            <img onClick={()=> navigate("/")} src={imgHome} />
+            <img onClick={()=> navigate("/Carrinho")} src={imgCarrinho} />
+            <img onClick={()=>navigate("/Perfil") } src={imgPerfil} />
           </BarraIncon>
         </Card>
 

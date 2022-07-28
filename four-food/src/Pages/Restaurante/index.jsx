@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import RestauranteInfo from './components/RestauranteInfo'
 import CardDeProdutos from './components/CardDeProdutos'
 import axios from 'axios'
+import Header from '../../Components/Header'
 
 const Restaurante = () => {
 	const [restaurante, setRestaurante] = useState(null)
@@ -21,6 +22,7 @@ const Restaurante = () => {
 	console.log(restaurante)
 	return (
 		<>
+			<Header/>
 			<RestauranteInfo
 				nome={restaurante?.name}
 				endereco={restaurante?.address}
