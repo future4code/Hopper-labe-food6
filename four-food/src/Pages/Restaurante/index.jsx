@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import RestauranteInfo from './components/RestauranteInfo'
-import CardDeProdutos from './components/CardDeProdutos'
+import CardDeProdutos from './components/CardDeProduto'
 import axios from 'axios'
 import Header from '../../Components/Header'
 import { useParams } from 'react-router-dom'
-
-
+import { Container } from './styles'
 
 const Restaurante = () => {
 	const { id } = useParams()
@@ -27,17 +26,19 @@ const Restaurante = () => {
 	return (
 		<>
 			<Header />
-			<RestauranteInfo
-				nome={restaurante?.name}
-				endereco={restaurante?.address}
-				frete={restaurante?.shipping}
-				tempoDeEntrega={restaurante?.deliveryTime}
-				categoria={restaurante?.category}
-				imagem={restaurante?.logoUrl}
-			/>
-			{restaurante?.products?.map((produto) => (
-				<CardDeProdutos produto={produto} />
-			))}
+			<Container>
+				<RestauranteInfo
+					nome={restaurante?.name}
+					endereco={restaurante?.address}
+					frete={restaurante?.shipping}
+					tempoDeEntrega={restaurante?.deliveryTime}
+					categoria={restaurante?.category}
+					imagem={restaurante?.logoUrl}
+				/>
+				{restaurante?.products?.map((produto) => (
+					<CardDeProdutos produto={produto} />
+				))}
+			</Container>
 		</>
 	)
 }
