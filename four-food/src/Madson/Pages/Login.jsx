@@ -1,11 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from 'axios';
 import useForm from '../Hooks/useForm'
 import { GlobalContext } from "../Global/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png"
 import { BoxTextField, ContainerSignIn, LogoSignin, SpamText, TextFields, ButtonSignIn, TextTitleSignIn, TitleSignIn} from "./Restaurante/StyledLogin";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
+
 
 
 
@@ -15,6 +24,8 @@ const Login = () => {
     const {states, setters} = useContext(GlobalContext)
     const {setUsuario, setToken} = setters
     const {token} = states
+    const [showPassword, setShowPassword] = useState(false)
+
 
     const navigate = useNavigate()
 
@@ -41,6 +52,7 @@ const Login = () => {
         password: ""}) 
     
     
+        
 
     return (
         <>
@@ -75,7 +87,7 @@ const Login = () => {
           fullWidth
         />
 
-        <TextFields
+        {/* <TextFields
           required
           id="outlined-required"
           label="Senha"
@@ -85,7 +97,32 @@ const Login = () => {
           name="password" 
           onChange={onChange}
           fullWidth
-        />
+        /> */}
+        <FormControl sx={{ m: 1, width: "20.5rem" }} variant="outlined">
+          <InputLabel htmlFor="campoSenha">
+            Senha
+          </InputLabel>
+          <OutlinedInput
+            id="campoSenha"
+            type={showPassword ? "text" : "password"}
+            value={form.password}
+            placeholder="Mínino 6 caracteres"
+            onChange={onChange}
+            name="password" 
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff /> }
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Mínino 6 caracteres"
+          />
+        </FormControl>
         
         </BoxTextField>
 
