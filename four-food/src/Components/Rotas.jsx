@@ -10,7 +10,8 @@ import Perfil from '../Pages/Perfil';
 import Cadastro from '../Pages/Cadastro/Cadastro';
 import CadastroEndereco from '../Pages/Cadastro/CadastroEndereco';
 import Restaurante from '../Pages/Restaurante'
-import Carrinho from '../Pages/Carrinho';
+import Carrinho from "../Pages/Carrinho"
+
   const Rotas = () => {
     return (
         <BrowserRouter>
@@ -22,7 +23,7 @@ import Carrinho from '../Pages/Carrinho';
                 <Route path="/Cadastro" element={<Cadastro/>}/>
                 <Route path="/CadastroEndereco" element={<CadastroEndereco/>}/>
                 <Route path="/Restaurante/:id" element={<Restaurante/>}/>
-                <Route path='/Carrinho' element={<Carrinho/>}  />
+                <Route path='/Carrinho' element={<Carrinho/>} />
             </Routes>
         </BrowserRouter>
     )

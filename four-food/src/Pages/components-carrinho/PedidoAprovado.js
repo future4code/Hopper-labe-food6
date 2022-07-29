@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import relogio from "../../img/relogio.png"
+import { GlobalContext } from "../../Global/GlobalContext";
 const MainContainer = styled.div`
 width: 22.5rem;
   height: 6.375rem;
@@ -66,13 +67,16 @@ align-items: center;
 `
 
 export default function Pedido(){
+const {states} = useContext(GlobalContext)
+const {carrinho , pedido} = states
+console.log(pedido)
     return(
         <MainContainer>
 
             <ContainerInfo>
             <PedidoAndamento>Pedido em andamento</PedidoAndamento>
-            <Restaurante>Bullguer Vila Madalena</Restaurante>
-            <ValorCompra>SUBTOTAL R$67,00</ValorCompra>
+            <Restaurante>{carrinho[0].info.name ? carrinho[0].info.name : <p></p> }</Restaurante>
+            <ValorCompra>SUBTOTAL {pedido} </ValorCompra>
             </ContainerInfo>
            <Relogio src={relogio} />
         </MainContainer>

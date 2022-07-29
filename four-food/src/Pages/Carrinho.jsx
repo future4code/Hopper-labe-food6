@@ -21,77 +21,44 @@ justify-content:center;
 
 const Carrinho = () => {
 
-  const [carrinho, setCarrinho] = useState([])
+  
   const {states , setters } = useContext(GlobalContext)
- const {pedido} = states 
- const {setPedido} = setters
+ const { carrinho , usuario } = states 
+ const {setPedido , setCarrinho} = setters
 
  const finalizarPedido = (novoPedido) =>{
-    setPedido(...pedido,novoPedido )
-    navigate("/Home")
+    setPedido(novoPedido)
+    navigate("/")
  }
+ const infoUsuario = usuario.user.address
  
-  const AtualizarCarrinho = (novoProduto, quantidade) => {
-    const compraJaAdicionada = carrinho.find(compra => compra.id === novoProduto.id)
-    if (compraJaAdicionada) {
-      compraJaAdicionada.qtd = compraJaAdicionada.qtd + quantidade
-    } else {
-      const valorDaCompra = novoProduto.price * quantidade
-      const compra = {
-        id: novoProduto.id,
-        nome: novoProduto.name,
-        descricao: novoProduto.description,
-        qtd: quantidade,
-        valor: valorDaCompra.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }),
-        imgUrl: novoProduto.photoUrl
-
-      }
-
-      carrinho.push(compra)
-    }
-    setCarrinho([...carrinho])
-  }
+  
+  
   const removerCompraCarrinho = (idCompraARemover) => {
     const carrinhoAtualizado = carrinho.find(compras => compras.id === idCompraARemover)
     if (carrinhoAtualizado.qtd > 1) {
       carrinhoAtualizado.qtd = carrinhoAtualizado.qtd - 1
+      carrinhoAtualizado.valor = carrinhoAtualizado.qtd * carrinhoAtualizado.valorUnitario
       setCarrinho([...carrinho])
+      
     } else {
 
       const novoCarrinho = carrinho.filter(compras => compras.id !== idCompraARemover)
 
 
 
-
+        
       setCarrinho(novoCarrinho)
-
+      setPedido("")
     }
 
 
   }
-  const compras = carrinho.map((produto) => {
+  
 
-    return <NovoProduto nome={produto.nome} descricao={produto.descricao} valor={produto.valor}
-      qtd={produto.qtd} img={"https://static-images.ifood.com.br/image/upload/f_auto,t_high/pratos/65c38aa8-b094-413d-9a80-ddc256bfcc78/201907031245_66194219.jpg"} remover={() => removerCompraCarrinho(produto.id)} />
-
-  })
-
-  const teste = () => {
-    let compra = {
-      id: 1,
-      nome: "Burguer",
-      descricao: "cane bovina com alface e queijo aaaaa",
-      qtd: 3,
-      valor: 30.00,
-      imgUrl: ""
-    }
-
-
-    carrinho.push(compra)
-    console.log(carrinho)
-    setCarrinho([...carrinho])
-  }
-  const somaTotaldeCompras = (totalProdutos, frete) => {
+  
+  const somaTotaldeCompras = (totalProdutos) => {
+    const frete = carrinho.length > 0 ? carrinho[0].info.shipping : 0
     let valorProduto = totalProdutos.map((novoValor) => {
       return novoValor.valor
     })
@@ -105,13 +72,18 @@ const Carrinho = () => {
 
   }
 
-  let totalDeCompras = somaTotaldeCompras(carrinho, 6.00)
+  let totalDeCompras = somaTotaldeCompras(carrinho)
+  const compras = carrinho.map((produto) => {
 
+    return <NovoProduto nome={produto.nome} descricao={produto.descricao} valor={produto.valor}
+      qtd={produto.qtd} img={produto.imgUrl} remover={() => removerCompraCarrinho(produto.id)} />
+
+  })
   const navigate = useNavigate()
   return (
 
     <MainContainer>
-      <button onClick={() => teste()} >teste</button>
+      
       <ContainerCarrinho>
 
         <BarraDoTitulo>
@@ -120,20 +92,20 @@ const Carrinho = () => {
 
         <Endereco>
           <Local>Endereço de entrega</Local>
-          <RuaEntrega>Rua Alessandra Vieira, 42</RuaEntrega>
+          <RuaEntrega> {infoUsuario} </RuaEntrega>
         </Endereco>
         {carrinho.length > 0 ? <div>
-          <Restaurante>Bullguer Vila Madalena</Restaurante>
+          <Restaurante>{carrinho[0].info.name ? carrinho[0].info.name : <p></p> } </Restaurante>
 
-          <Rua>R. Fradique Coutinho, 1136 - Vila Madalena</Rua>
-          <Tempo>30 - 40 min</Tempo>
+          <Rua>{carrinho[0].info.address ? carrinho[0].info.address : <p></p> } </Rua>
+          <Tempo>30 - {carrinho[0].info.deliveryTime? carrinho[0].info.deliveryTime: <p></p> } </Tempo>
         </div> : <CarrinhoVazio>Carrinho vazio</CarrinhoVazio>}
 
 
         <Card>
           {compras}
 
-          <Frete>Frete R$ 6,00 </Frete>
+          <Frete>Frete  {carrinho.length > 0 ? carrinho[0].info.shipping.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : "R$0,00"  } </Frete>
           <Valores>
             <SubTotal>SUBTOTAL</SubTotal>
             <Total> {totalDeCompras} </Total>
@@ -144,7 +116,7 @@ const Carrinho = () => {
             <input type="radio" name="pagamento" value="Din" />Dinheiro <br />
             <input type="radio" name="pagamento" value="Card" />Cartão de Credito
           </EscolhaDePagamento>
-          <BoxComprar>
+          <BoxComprar onClick={()=>finalizarPedido(totalDeCompras)} >
             <p>Comfirmar</p>
           </BoxComprar>
           <LineGrey>_________________________________________________</LineGrey>
@@ -157,7 +129,7 @@ const Carrinho = () => {
 
       </ContainerCarrinho>
 
-
+          
     </MainContainer>
 
   )

@@ -57,14 +57,14 @@ align-items:center;
 display:flex;
 justify-content:center;
 overflow:hidden;
-padding-right:2rem;
+padding-left:1rem;
 
 
 `
 const ImgProtudo = styled.img`
 
-   width: 15.3rem;
-  height:9rem;
+   width: 13.3rem;
+  height:7rem;
   margin: 0 1rem 0 0;
   object-fit: contain;
   border-radius: 8px 0 0 8px;
@@ -151,7 +151,7 @@ export default function produto(props) {
   <DescricaoCompra>
     <NomeProduto>{props.nome}</NomeProduto>
     <Descricao>{props.descricao}</Descricao>
-    <Valor>R$ {props.valor}</Valor>
+    <Valor> {props.valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }</Valor>
   </DescricaoCompra>
 
   <Remover onClick={props.remover} >

@@ -13,8 +13,7 @@ const Header = () => {
         <button onClick={() => {navigate("/Cadastro")}}>Cadastro</button>
         <button onClick={() => {navigate("/CadastroEndereco")}}>CadastroEndereco</button>
         <button onClick={() => {navigate("/Restaurante")}}>Restaurante</button>
-        <button onClick={() => {navigate("/Carrinho")}}>Carrinho</button>
-        
+        <button onClick={() => {navigate("/Carrinho")}} >Carrinho</button>
     </div>
 }
 
