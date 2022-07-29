@@ -1,12 +1,12 @@
 import './App.css'
-import Restaurante from './Pages/Restaurante'
+import Rotas from './Components/Rotas'
+import { GlobalState } from './Global/GlobalState'
 
 function App() {
 	return (
-		<div className='App'>
-			<Restaurante />
-			<h1>LabeFood</h1>
-		</div>
+		<GlobalState>
+			<Rotas/>
+		</GlobalState>
 	)
 }
 
