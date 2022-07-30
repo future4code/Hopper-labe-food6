@@ -1,9 +1,14 @@
 import React, { useContext } from "react";
-import Header from "../Components/Header";
 import axios from 'axios';
 import useForm from '../Hooks/useForm'
 import { GlobalContext } from "../Global/GlobalContext";
 import { useNavigate } from "react-router-dom";
+import Logo from "./Styles/logo.png"
+import { BoxTextField, ContainerSignIn, LogoSignin, SpamText, TextFields, ButtonSignIn, TextTitleSignIn, TitleSignIn} from "./Styles/StyledLogin";
+import { FormControl } from "@mui/material";
+
+
+
 
 const Login = () => {
 
@@ -13,8 +18,7 @@ const Login = () => {
 
     const navigate = useNavigate()
 
-    const onClick = (event) => {
-        event.preventDefault()
+    const onClick = () => {
 
         const url = "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/login"
         const body = form
@@ -34,33 +38,71 @@ const Login = () => {
     const [form, onChange] = useForm({
         email: "",
         password: ""}) 
+    
+    
 
     return (
-        <div>
-        <Header/>
+        <>
+        {/* <Header/> */}
 
-        <h2>Entrar</h2>
-        <form onSubmit={onClick}>
-            <input 
-                placeholder="Email"
-                type="e-mail" 
-                name="email" 
-                value={form.email}
-                onChange={onChange}/>
-            <input 
-                placeholder="Senha"
-                type="password" 
-                name="password" 
-                value={form.password}
-                onChange={onChange}/>
+        <ContainerSignIn>
+            <LogoSignin src={Logo}/>
 
-            <button>Entrar</button>
+            <TitleSignIn>
+                <TextTitleSignIn>Entrar</TextTitleSignIn> 
+            </TitleSignIn>
 
-        </form>
-        <br/>
         
-        <button onClick={() => {navigate("/Cadastro")}}>Cadastro</button>
-        </div>
+
+        <FormControl component="form" onSubmit={onClick}
+            sx={{
+                '& .MuiTextField-root': { m: 1, width: '20.5rem' },
+            }}
+            noValidate
+            autoComplete="off"
+            >
+      <BoxTextField>
+        <TextFields
+          required
+          id="outlined-multiline-flexible"
+          label="E-mail"
+          defaultValue={form.email}
+          placeholder="email@email.com"
+          type="e-mail" 
+          name="email" 
+          onChange={onChange}
+          fullWidth
+        />
+
+        <TextFields
+          required
+          id="outlined-required"
+          label="Senha"
+          defaultValue={form.password}
+          placeholder="Mínino 6 caracteres"
+          type="password" 
+          name="password" 
+          onChange={onChange}
+          fullWidth
+        />
+        
+        </BoxTextField>
+
+        <ButtonSignIn variant="contained"disableElevation onClick={() => {onClick()}}>Entrar</ButtonSignIn>
+        </FormControl>
+
+       
+        
+        
+        <SpamText onClick={() => {navigate("/Cadastro")}}>Não possui cadastro? Clique Aqui.</SpamText>
+
+        
+        </ContainerSignIn>
+
+
+
+
+       </>
     )
 }
 
