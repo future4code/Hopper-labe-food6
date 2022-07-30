@@ -6,7 +6,10 @@ export const GlobalState = (props) => {
 	const [usuario, setUsuario] = useState({})
 	const [token, setToken] = useState('')
 	const [restaurants, setRestaurants] = useState([])
-	const [cart, setCart] = useState([])
+	const [cart, setCart] = useState({
+		products: [],
+		paymentMethod: ""
+	})
 
 	const states = { usuario, token, restaurants, cart }
 

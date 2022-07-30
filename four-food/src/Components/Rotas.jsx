@@ -15,9 +15,9 @@ import Restaurante from '../Pages/Restaurante'
     return (
         <BrowserRouter>
             <Routes>
-              <Route path="/Login" element={<Login/>}/>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/Busca" element={<Busca/>}/>
+                <Route path="/Login" element={<Login/>}/>
                 <Route path="/Perfil" element={<Perfil/>}/>
                 <Route path="/Cadastro" element={<Cadastro/>}/>
                 <Route path="/CadastroEndereco" element={<CadastroEndereco/>}/>

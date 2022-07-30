@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import RestauranteInfo from './components/RestauranteInfo'
 import CardDeProdutos from './components/CardDeProduto'
 import axios from 'axios'
@@ -9,20 +9,71 @@ import { Container } from './styles'
 const Restaurante = () => {
 	const { id } = useParams()
 	const [restaurante, setRestaurante] = useState(null)
+	const [prodId, setProdId] = useState("")
+	const [open, setOpen] = useState(false);
+    const handleOpen = (id) => {
+		setOpen(true)
+		setProdId(id)
+	};
+    const handleClose = () => setOpen(false);
+
+	const param = useParams()
+
 	useEffect(() => {
 		axios
 			.get(
 				`https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/restaurants/${id}`,
 				{
 					headers: {
-						auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImdaSGo0RVM3aW4zTkdSTEJKQWtUIiwibmFtZSI6InRlc3RlMSIsImVtYWlsIjoidGVzdDFAZ21haWwuY29tIiwiY3BmIjoiMjMyLjIyNi4yMTItMjIiLCJoYXNBZGRyZXNzIjp0cnVlLCJhZGRyZXNzIjoiUi4gQWZvbnNvIEJyYXosIDE3NywgNzEgLSBWaWxhIE4uIENvbmNlacOnw6NvIiwiaWF0IjoxNjU4MDAxMzU0fQ.dWVp6E072aC6xB4T8N_fpakshHKnS6yp3So0z0OZLaI',
+						auth: token
 					},
 				}
 			)
-			.then((response) => setRestaurante(response.data.restaurant))
+			.then((response) => {
+				setRestaurante(response.data.restaurant)
+				console.log(response.data.restaurant);
+			}).catch((err) => {
+				console.log(err);
+			})
 	}, [])
 
-	console.log(restaurante)
+	const style = {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		width: '80vw',
+		bgcolor: 'background.paper',
+		border: '2px solid #6e0202',
+		borderRadius: '10px',
+		boxShadow: 24,
+		p: 4,
+		textAlign: 'center',
+	};
+	
+	const [form, onChange] = useForm({
+		id: "",
+		quantity: ""
+	})
+
+	const onClickAddProduto = (event) => {
+		event.preventDefault()
+
+		const pedido = {
+			id: prodId,
+			quantity: form.quantity
+		}
+
+		const pedidos = carrinho.products
+		pedidos.push(pedido)
+
+		setCarrinho({products: pedidos, paymentMethod: ""})
+		console.log(carrinho);
+		form.quantity = ""
+
+		handleClose()
+	}
+	
 	return (
 		<>
 			<Header />
