@@ -10,14 +10,10 @@ import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
+import Icon from '@mui/material/Icon';
 import FormControl from "@mui/material/FormControl";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
-
-
-
-
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Login = () => {
 
@@ -116,7 +112,7 @@ const Login = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   edge="end"
                 >
-                  {showPassword ? <Visibility /> : <VisibilityOff /> }
+                  {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon /> }
                 </IconButton>
               </InputAdornment>
             }
