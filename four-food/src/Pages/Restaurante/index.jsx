@@ -18,7 +18,6 @@ const Restaurante = () => {
     const handleClose = () => setOpen(false);
 
 	const param = useParams()
-	const id = param.id
 
 	useEffect(() => {
 		axios
