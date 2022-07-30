@@ -29,8 +29,8 @@ const Login = () => {
 
     const navigate = useNavigate()
 
-    const onClick = (event) => {
-        event.preventDefault()
+    const onClick = () => {
+        
 
         const url = "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/login"
         const body = form
@@ -126,7 +126,7 @@ const Login = () => {
         
         </BoxTextField>
 
-        <ButtonSignIn variant="contained"disableElevation onClick={() => {navigate("/Home")}}>Entrar</ButtonSignIn>
+        <ButtonSignIn variant="contained"disableElevation onClick={() => {onClick()}}>Entrar</ButtonSignIn>
         </Box>
 
        
