@@ -27,6 +27,7 @@ const CardDeProdutos = ({ produto }) => {
 	const handleOpen = (id) => {
 		setOpen(true)
 	};
+	
 	const handleClose = () => setOpen(false)
 	const [quantity, setQuantity] = useState(0)
 	useEffect(() => {
