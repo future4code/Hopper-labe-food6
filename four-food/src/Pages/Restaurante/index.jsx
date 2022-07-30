@@ -5,6 +5,8 @@ import axios from 'axios'
 import Header from '../../Components/Header'
 import { useParams } from 'react-router-dom'
 import { Container } from './styles'
+import useForm from '../../Hooks/useForm'
+import { GlobalContext } from '../../Global/GlobalContext'
 
 const Restaurante = () => {
 	const { id } = useParams()
@@ -17,6 +19,8 @@ const Restaurante = () => {
 	};
     const handleClose = () => setOpen(false);
 
+	const {states} = useContext(GlobalContext)
+
 	const param = useParams()
 
 	useEffect(() => {
@@ -25,7 +29,7 @@ const Restaurante = () => {
 				`https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/restaurants/${id}`,
 				{
 					headers: {
-						auth: token
+						auth: states.token
 					},
 				}
 			)

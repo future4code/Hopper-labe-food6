@@ -8,21 +8,25 @@ Modal.setAppElement('#root')
 const CardDeProdutos = ({ produto }) => {
 	const { states, setters } = useContext(GlobalContext)
 	const handleAddToCart = (item, quantidade) => {
-		if (quantidade > 0) {
-			setters.setCart((prevState) => [
-				...prevState,
-				{
-					...item,
-					quantity: quantidade,
-				},
-			])
-
-			setQuantity(0)
-			setOpen(false)
+		const pedido = {
+			id: item,
+			quantity: quantidade
 		}
+		const pedidos = states.cart.products
+
+		pedidos.push(pedido)
+		console.log(states.cart);
+
+		setters.setCart({products: pedidos, paymentMethod: ""})
+		setQuantity(0)
+		setOpen(false)
+		
 	}
+	const id = produto.id
 	const [open, setOpen] = useState(false)
-	const handleOpen = () => setOpen(true)
+	const handleOpen = (id) => {
+		setOpen(true)
+	};
 	const handleClose = () => setOpen(false)
 	const [quantity, setQuantity] = useState(0)
 	useEffect(() => {
@@ -55,7 +59,7 @@ const CardDeProdutos = ({ produto }) => {
 							value={quantity}
 							onChange={(event) => setQuantity(event.target.value)}
 						/>
-						<button onClick={() => handleAddToCart(produto, quantity)}>
+						<button onClick={() => handleAddToCart(produto.id, quantity)}>
 							ADICIONAR AO CARRINHO
 						</button>
 					</div>
