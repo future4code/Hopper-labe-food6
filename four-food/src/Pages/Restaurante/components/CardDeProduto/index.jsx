@@ -24,15 +24,11 @@ const CardDeProdutos = ({ produto }) => {
 	}
 	const id = produto.id
 	const [open, setOpen] = useState(false)
-	const handleOpen = (id) => {
+	const handleOpen = () => {
 		setOpen(true)
 	};
 	
-	const handleClose = () => setOpen(false)
 	const [quantity, setQuantity] = useState(0)
-	useEffect(() => {
-		console.log(states.cart)
-	}, [states])
 
 	return (
 		<>

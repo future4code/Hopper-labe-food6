@@ -6,6 +6,7 @@ import { GlobalContext } from "../Global/GlobalContext";
 import useAutenticator from "../Hooks/useAutenticator";
 import styled from "styled-components";
 import Input from '@mui/material/Input';
+import CardPedido from "./components-carrinho/PedidoAprovado"
 
 
 const MenuFiltros = styled.div`
@@ -19,7 +20,7 @@ const Home = () => {
     useAutenticator()
 
     const {states, setters} = useContext(GlobalContext)
-    const {token, restaurants} = states
+    const {token, restaurants, pedido} = states
     const {setRestaurants} = setters
 
     const [loading, setLoading] = useState(false)
@@ -103,6 +104,7 @@ const Home = () => {
                     )
                     })
             }
+            { pedido ? <CardPedido/> && <CardPedido/> : <div></div> && <div></div> }
         </div>
     )
 }

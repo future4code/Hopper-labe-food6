@@ -10,10 +10,10 @@ export const GlobalState = (props) => {
 		products: [],
 		paymentMethod: ""
 	})
+	const [pedido , setPedido] = useState("")
+	const states = { usuario, token, restaurants, cart, pedido }
 
-	const states = { usuario, token, restaurants, cart }
-
-	const setters = { setUsuario, setToken, setRestaurants, setCart }
+	const setters = { setUsuario, setToken, setRestaurants, setCart, setPedido }
 
 	useEffect(() => {
 		const header = {
