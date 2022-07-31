@@ -5,7 +5,14 @@ import Header from "../Components/Header";
 import { GlobalContext } from "../Global/GlobalContext";
 import useAutenticator from "../Hooks/useAutenticator";
 import styled from "styled-components";
+import SearchIcon from '@mui/icons-material/Search';
+import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+import Box from '@mui/material/Box';
+import MenuBar from "../Components/MenuBar";
+import { Button } from "@mui/material";
 
 
 const MenuFiltros = styled.div`
@@ -13,7 +20,18 @@ const MenuFiltros = styled.div`
     flex-direction: row;
     overflow-y: scroll;
     gap: 15px;
+    margin: 15px;
 `
+
+const ItemFiltro = styled.p`
+    font-size: '1.5em';
+    color: 'rgb(0,0,0)';
+    transition: '150ms';
+    &:focus {
+        font-size: '1.3em';
+        color: '#ff0000'
+    }
+`;
 
 const Home = () => {
     useAutenticator()
@@ -24,6 +42,7 @@ const Home = () => {
 
     const [loading, setLoading] = useState(false)
     const [filtro, setFiltro] = useState([])
+    const [filtroNome, setFiltroNome] = useState("")
     const [categoria, setCategoria] = useState("")
 
     useEffect(() => {
@@ -58,24 +77,18 @@ const Home = () => {
         } 
 
     }
-    
-    return (
-        <div>
-        <Header/>
-        <h1>Home</h1>
-        <form><input 
-            type="text"
-            placeholder="Busca"
-            /></form>
-        <MenuFiltros>
-            {
-                !loading && restaurants && restaurants.map((menu) => {
-                    return <p key={menu.id} onClick={() => {onClickFiltro(menu.category)} }>{ menu.category }</p>
-                })
-            }
-        </MenuFiltros>
-            { 
-                !loading && restaurants && filtro && filtro.length > 0 && filtro.map((restaurante) => {
+    let filtroTexto 
+
+    const restaurantes = () => { 
+
+        const listaDeRestaurantes = restaurants.map(restaurante => restaurante.name.toLowerCase())
+        filtroTexto = listaDeRestaurantes.filter((restaurante) => filtroNome ? restaurante.includes(filtroNome): true)
+
+        if (!loading && restaurants && filtro && filtro.length > 0) {
+            return (
+            filtro
+                .filter((restaurante) => filtroNome ? restaurante?.name.toLowerCase().includes(filtroNome.toLowerCase()): true)
+                .map((restaurante) => {
                     return (
                         <CardRestaurante key={restaurante.id}
                         nome={restaurante.name}
@@ -87,10 +100,12 @@ const Home = () => {
                     )
 
                 }) 
-            }
-
-            {
-                !loading && restaurants && filtro && filtro.length === 0 && restaurants.map((restaurante) => {
+            )
+        } else if (!loading && restaurants && filtro && filtro.length === 0) {
+            return(
+            restaurants
+                .filter((restaurante) => filtroNome ? restaurante?.name.toLowerCase().includes(filtroNome.toLowerCase()): true)
+                .map((restaurante) => {
 
                     return (
                         <CardRestaurante key={restaurante.id}
@@ -102,6 +117,51 @@ const Home = () => {
                         />
                     )
                     })
+            )
+        }  
+        return filtroTexto
+
+    }
+    
+    return (
+        <div>
+        <MenuBar/>
+        <Box sx={{margin: '10px', borderBottom: '2px solid #88888876', padding: '5px' }}>
+            <Typography sx={{fontSize: '1.3em', textAlign: 'center'}} id="spring-modal-title" variant="h1" component="h1" >Ifuture</Typography>
+        </Box>
+        <Box sx={{display: 'flex', justifyContent: 'center'}}>
+            <FormControl>
+                <Input sx={{width: '90vw', height: '50px', border: '2px solid #88888876'}}
+                    type="search"
+                    variant="filled"
+                    value={filtroNome}
+                    onChange={(event) => {setFiltroNome(event.target.value)}}
+                    placeholder="Busca"
+                    startAdornment={
+                        <InputAdornment position="start">
+                            <SearchIcon />
+                        </InputAdornment>
+                    }
+                />
+            </FormControl>
+        </Box>
+        <MenuFiltros>
+            {
+                !loading && restaurants && restaurants.map((menu) => {
+                    return <Box key={menu.id}> 
+                            <Button variant="text" sx={{color: '#c20000'}} onClick={() => {onClickFiltro(menu.category)} }>{ menu.category }</Button></Box>
+                })
+            }
+        </MenuFiltros>
+
+            {
+                restaurantes()
+            }
+            {
+                !loading && restaurants && filtro && filtroTexto.length === 0 && 
+                <Box sx={{textAlign: 'center'}}>
+                    <Typography>Não encontramos ¯\_(ツ)_/¯ </Typography>
+                </Box> 
             }
         </div>
     )
