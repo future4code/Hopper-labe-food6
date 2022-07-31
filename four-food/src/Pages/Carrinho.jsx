@@ -23,8 +23,8 @@ const Carrinho = () => {
 
   
   const {states , setters } = useContext(GlobalContext)
- const { carrinho , usuario } = states 
- const {setPedido , setCarrinho} = setters
+ const { cart , usuario } = states 
+ const {setPedido , setCart} = setters
 
  const finalizarPedido = (novoPedido) =>{
     setPedido(novoPedido)
@@ -35,15 +35,15 @@ const Carrinho = () => {
   
   
   const removerCompraCarrinho = (idCompraARemover) => {
-    const carrinhoAtualizado = carrinho.find(compras => compras.id === idCompraARemover)
+    const carrinhoAtualizado = cart.find(compras => compras.id === idCompraARemover)
     if (carrinhoAtualizado.qtd > 1) {
       carrinhoAtualizado.qtd = carrinhoAtualizado.qtd - 1
       carrinhoAtualizado.valor = carrinhoAtualizado.qtd * carrinhoAtualizado.valorUnitario
-      setCarrinho([...carrinho])
+      setCart([...cart])
       
     } else {
 
-      const novoCarrinho = carrinho.filter(compras => compras.id !== idCompraARemover)
+      const novoCarrinho = cart.filter(compras => compras.id !== idCompraARemover)
 
 
 
@@ -58,7 +58,7 @@ const Carrinho = () => {
 
   
   const somaTotaldeCompras = (totalProdutos) => {
-    const frete = carrinho.length > 0 ? carrinho[0].info.shipping : 0
+    const frete = cart?.length > 0 ? cart[0].info.shipping : 0
     let valorProduto = totalProdutos.map((novoValor) => {
       return novoValor.valor
     })
@@ -72,8 +72,8 @@ const Carrinho = () => {
 
   }
 
-  let totalDeCompras = somaTotaldeCompras(carrinho)
-  const compras = carrinho.map((produto) => {
+  let totalDeCompras = somaTotaldeCompras(cart)
+  const compras = cart.map((produto) => {
 
     return <NovoProduto nome={produto.nome} descricao={produto.descricao} valor={produto.valor}
       qtd={produto.qtd} img={produto.imgUrl} remover={() => removerCompraCarrinho(produto.id)} />
@@ -94,18 +94,18 @@ const Carrinho = () => {
           <Local>Endereço de entrega</Local>
           <RuaEntrega> {infoUsuario} </RuaEntrega>
         </Endereco>
-        {carrinho.length > 0 ? <div>
-          <Restaurante>{carrinho[0].info.name ? carrinho[0].info.name : <p></p> } </Restaurante>
+        {cart.length > 0 ? <div>
+          <Restaurante>{cart[0].info.name ? cart[0].info.name : <p></p> } </Restaurante>
 
-          <Rua>{carrinho[0].info.address ? carrinho[0].info.address : <p></p> } </Rua>
-          <Tempo>30 - {carrinho[0].info.deliveryTime? carrinho[0].info.deliveryTime: <p></p> } </Tempo>
+          <Rua>{cart[0].info.address ? cart[0].info.address : <p></p> } </Rua>
+          <Tempo>30 - {cart[0].info.deliveryTime? cart[0].info.deliveryTime: <p></p> } </Tempo>
         </div> : <CarrinhoVazio>Carrinho vazio</CarrinhoVazio>}
 
 
         <Card>
           {compras}
 
-          <Frete>Frete  {carrinho.length > 0 ? carrinho[0].info.shipping.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : "R$0,00"  } </Frete>
+          <Frete>Frete  {cart.length > 0 ? cart[0].info.shipping.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : "R$0,00"  } </Frete>
           <Valores>
             <SubTotal>SUBTOTAL</SubTotal>
             <Total> {totalDeCompras} </Total>

@@ -6,12 +6,14 @@ export const GlobalState = (props) => {
 	const [usuario, setUsuario] = useState({})
 	const [token, setToken] = useState('')
 	const [restaurants, setRestaurants] = useState([])
-	const [cart, setCart] = useState([])
-	const [carrinho , setCarrinho] = useState([])
+	const [cart, setCart] = useState({
+		products: [],
+		paymentMethod: ""
+	})
 	const [pedido , setPedido] = useState("")
-	const states = { usuario, token, restaurants, cart , carrinho, pedido }
+	const states = { usuario, token, restaurants, cart, pedido }
 
-	const setters = { setUsuario, setToken, setRestaurants, setCart, setCarrinho, setPedido }
+	const setters = { setUsuario, setToken, setRestaurants, setCart, setPedido }
 
 	useEffect(() => {
 		const header = {

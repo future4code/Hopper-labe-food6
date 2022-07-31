@@ -21,7 +21,6 @@ const CardRestaurante = (props) => {
     const entrega = props.tempoEntrega
     const frete = props.frete
     const id = props.id
-    
 
     return (
         <Card sx={{ 

@@ -20,7 +20,7 @@ const Home = () => {
     useAutenticator()
 
     const {states, setters} = useContext(GlobalContext)
-    const {token, restaurants ,pedido } = states
+    const {token, restaurants, pedido} = states
     const {setRestaurants} = setters
 
     const [loading, setLoading] = useState(false)
