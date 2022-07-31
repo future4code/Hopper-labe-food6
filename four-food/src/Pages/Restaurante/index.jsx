@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import RestauranteInfo from './components/RestauranteInfo'
-import CardDeProdutos from './components/CardDeProduto'
+import RestauranteInfo from './components/RestauranteInfo/index'
+import CardDeProdutos from './components/CardDeProduto/index'
 import axios from 'axios'
 import Header from '../../Components/Header'
 import { useParams } from 'react-router-dom'
@@ -11,17 +11,7 @@ import { GlobalContext } from '../../Global/GlobalContext'
 const Restaurante = () => {
 	const { id } = useParams()
 	const [restaurante, setRestaurante] = useState(null)
-	const [prodId, setProdId] = useState("")
-	const [open, setOpen] = useState(false);
-    const handleOpen = (id) => {
-		setOpen(true)
-		setProdId(id)
-	};
-    const handleClose = () => setOpen(false);
-
 	const {states} = useContext(GlobalContext)
-
-	const param = useParams()
 
 	useEffect(() => {
 		axios
@@ -55,29 +45,6 @@ const Restaurante = () => {
 		textAlign: 'center',
 	};
 	
-	const [form, onChange] = useForm({
-		id: "",
-		quantity: ""
-	})
-
-	const onClickAddProduto = (event) => {
-		event.preventDefault()
-
-		const pedido = {
-			id: prodId,
-			quantity: form.quantity
-		}
-
-		const pedidos = carrinho.products
-		pedidos.push(pedido)
-
-		setCarrinho({products: pedidos, paymentMethod: ""})
-		console.log(carrinho);
-		form.quantity = ""
-
-		handleClose()
-	}
-	
 	return (
 		<>
 			<Header />
@@ -91,7 +58,7 @@ const Restaurante = () => {
 					imagem={restaurante?.logoUrl}
 				/>
 				{restaurante?.products?.map((produto) => (
-					<CardDeProdutos produto={produto} />
+					<CardDeProdutos produto={produto}/>
 				))}
 			</Container>
 		</>

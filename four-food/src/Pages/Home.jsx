@@ -8,6 +8,7 @@ import styled from "styled-components";
 import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
+import CardPedido from "./components-carrinho/PedidoAprovado"
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import Box from '@mui/material/Box';
@@ -37,7 +38,7 @@ const Home = () => {
     useAutenticator()
 
     const {states, setters} = useContext(GlobalContext)
-    const {token, restaurants} = states
+    const {token, restaurants, pedido} = states
     const {setRestaurants} = setters
 
     const [loading, setLoading] = useState(false)
@@ -163,6 +164,7 @@ const Home = () => {
                     <Typography>Não encontramos ¯\_(ツ)_/¯ </Typography>
                 </Box> 
             }
+            { pedido ? <CardPedido/> && <CardPedido/> : <div></div> && <div></div> }
         </div>
     )
 }
