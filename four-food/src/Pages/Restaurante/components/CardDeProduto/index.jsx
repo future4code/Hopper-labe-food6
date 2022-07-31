@@ -9,8 +9,8 @@ const CardDeProdutos = ({ produto }) => {
 	const { states, setters } = useContext(GlobalContext)
 	const handleAddToCart = (item, quantidade) => {
 		const pedido = {
-			id: item,
-			quantity: quantidade
+			item,
+			quantity: Number(quantidade)
 		}
 		const pedidos = states.cart.products
 
@@ -56,7 +56,7 @@ const CardDeProdutos = ({ produto }) => {
 							value={quantity}
 							onChange={(event) => setQuantity(event.target.value)}
 						/>
-						<button onClick={() => handleAddToCart(produto.id, quantity)}>
+						<button onClick={() => handleAddToCart(produto, quantity)}>
 							ADICIONAR AO CARRINHO
 						</button>
 					</div>

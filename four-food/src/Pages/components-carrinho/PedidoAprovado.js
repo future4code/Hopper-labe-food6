@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import relogio from "../../img/relogio.png"
 import { GlobalContext } from "../../Global/GlobalContext";
 const MainContainer = styled.div`
 width: 22.5rem;
@@ -72,13 +71,11 @@ const {carrinho , pedido} = states
 console.log(pedido)
     return(
         <MainContainer>
-
-            <ContainerInfo>
-            <PedidoAndamento>Pedido em andamento</PedidoAndamento>
-            <Restaurante>{carrinho[0].info.name ? carrinho[0].info.name : <p></p> }</Restaurante>
-            <ValorCompra>SUBTOTAL {pedido} </ValorCompra>
-            </ContainerInfo>
-           <Relogio src={relogio} />
+          <ContainerInfo>
+          <PedidoAndamento>Pedido em andamento</PedidoAndamento>
+          <Restaurante>{carrinho[0].info.name ? carrinho[0].info.name : <p></p> }</Restaurante>
+          <ValorCompra>SUBTOTAL {pedido} </ValorCompra>
+          </ContainerInfo>
         </MainContainer>
     )
 }

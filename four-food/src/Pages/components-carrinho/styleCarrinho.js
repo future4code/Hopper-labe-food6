@@ -1,8 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import imgHome from "../../img/home.png"
-import imgCarrinho from "../../img/carrinho.png"
-import imgPerfil from "../../img/perfil.png"
 
 export const ContainerCarrinho = styled.div`
 width: 24.5rem;
@@ -247,26 +244,6 @@ p{
   position: relative;
   top: 3.5rem;
   right:1rem;
-`
- export const BarraIncon = styled.div`
-
-display:flex;
-justify-content:space-between;
-position: relative;
-
-top:3rem;
-right:1rem;
-
-  width: 18rem;
-  height: 3.062rem;
-  padding: 0.688rem 2.875rem 0.688rem 2.938rem;
-  img{
-    cursor: pointer;
-    width: 1.8rem;
-  height: 1.9rem;
-  object-fit: contain;
-
-  }
 `
 export const CarrinhoVazio = styled.p`
 width: 18.5rem;
