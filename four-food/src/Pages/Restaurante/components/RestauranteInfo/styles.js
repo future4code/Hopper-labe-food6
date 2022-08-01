@@ -9,6 +9,7 @@ export const Img = styled.img`
 	width: 20.5rem;
 	margin: 1.63rem 1rem 0.75rem;
 	object-fit: contain;
+	border-radius: 5px;
 `
 export const Nome = styled.span`
 	width: 20.5rem;

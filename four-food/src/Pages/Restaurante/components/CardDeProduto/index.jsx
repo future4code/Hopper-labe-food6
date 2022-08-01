@@ -5,20 +5,25 @@ import * as S from './styles'
 
 Modal.setAppElement('#root')
 
-const CardDeProdutos = ({ produto }) => {
+const CardDeProdutos = ({ 
+	produto, 
+	frete,
+	restaurante
+}) => {
 	const { states, setters } = useContext(GlobalContext)
 	const handleAddToCart = (item, quantidade) => {
+		event.preventDefault()
 		const pedido = {
-			id: item,
-			quantity: quantidade
+			item,
+			quantity: Number(quantidade)
 		}
 		const pedidos = states.cart.products
 
 		pedidos.push(pedido)
 		console.log(states.cart);
 
-		setters.setCart({products: pedidos, paymentMethod: ""})
-		setQuantity(0)
+		setters.setCart({restaurant: restaurante, shipping: frete, products: pedidos, paymentMethod: ""})
+		setQuantity("")
 		setOpen(false)
 		
 	}
@@ -28,7 +33,7 @@ const CardDeProdutos = ({ produto }) => {
 		setOpen(true)
 	};
 	
-	const [quantity, setQuantity] = useState(0)
+	const [quantity, setQuantity] = useState("")
 
 	return (
 		<>
@@ -51,14 +56,16 @@ const CardDeProdutos = ({ produto }) => {
 					</div>
 					<div className='modal-body'>
 						<p>Selecione a quantidade desejada</p>
-						<input
-							type='number'
-							value={quantity}
-							onChange={(event) => setQuantity(event.target.value)}
-						/>
-						<button onClick={() => handleAddToCart(produto.id, quantity)}>
-							ADICIONAR AO CARRINHO
-						</button>
+						<form onSubmit={() => handleAddToCart(produto, quantity)}>
+							<input
+								type='number'
+								value={quantity}
+								onChange={(event) => setQuantity(event.target.value)}
+							/>
+							<button>
+								ADICIONAR AO CARRINHO
+							</button>
+						</form>
 					</div>
 				</div>
 			</S.Modal>

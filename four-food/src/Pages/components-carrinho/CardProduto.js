@@ -142,23 +142,21 @@ export default function produto(props) {
         <MolduraImg>
         <ImgProtudo src={props.img} />
         </MolduraImg>
-         
+        <div>
+          <Qtd>
+            <p>{props.qtd}</p>
+          </Qtd>
+          <DescricaoCompra>
+            <NomeProduto>{props.nome}</NomeProduto>
+            <Descricao>{props.descricao}</Descricao>
+            <Valor> {props.valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }</Valor>
+          </DescricaoCompra>
 
-<div>
-  <Qtd>
-    <p>{props.qtd}</p>
-  </Qtd>
-  <DescricaoCompra>
-    <NomeProduto>{props.nome}</NomeProduto>
-    <Descricao>{props.descricao}</Descricao>
-    <Valor> {props.valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }</Valor>
-  </DescricaoCompra>
+          <Remover onClick={props.remover} >
+            <p>remover</p>
+          </Remover>
 
-  <Remover onClick={props.remover} >
-    <p>remover</p>
-  </Remover>
-
-</div>
+        </div>
       </Produto>
     )
        

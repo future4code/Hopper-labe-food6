@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import RestauranteInfo from './components/RestauranteInfo/index'
 import CardDeProdutos from './components/CardDeProduto/index'
 import axios from 'axios'
-import Header from '../../Components/Header'
+import AppBarComponent from '../../Components/AppBarComponent'
 import { useParams } from 'react-router-dom'
 import { Container } from './styles'
-import useForm from '../../Hooks/useForm'
 import { GlobalContext } from '../../Global/GlobalContext'
 
 const Restaurante = () => {
@@ -46,22 +45,24 @@ const Restaurante = () => {
 	};
 	
 	return (
-		<>
-			<Header />
-			<Container>
-				<RestauranteInfo
-					nome={restaurante?.name}
-					endereco={restaurante?.address}
-					frete={restaurante?.shipping}
-					tempoDeEntrega={restaurante?.deliveryTime}
-					categoria={restaurante?.category}
-					imagem={restaurante?.logoUrl}
-				/>
-				{restaurante?.products?.map((produto) => (
-					<CardDeProdutos produto={produto}/>
-				))}
-			</Container>
-		</>
+		<Container>
+			<AppBarComponent nome={"Restaurante"}/>
+			<RestauranteInfo
+				nome={restaurante?.name}
+				endereco={restaurante?.address}
+				frete={restaurante?.shipping}
+				tempoDeEntrega={restaurante?.deliveryTime}
+				categoria={restaurante?.category}
+				imagem={restaurante?.logoUrl}
+			/>
+			{restaurante?.products?.map((produto) => (
+				<CardDeProdutos 
+				key={produto.id} 
+				produto={produto}
+				frete={restaurante?.shipping}
+				restaurante={restaurante}/>
+			))}
+		</Container>
 	)
 }
 

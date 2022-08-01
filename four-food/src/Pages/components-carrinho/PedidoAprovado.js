@@ -1,84 +1,41 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import relogio from "../../img/relogio.png"
 import { GlobalContext } from "../../Global/GlobalContext";
-const MainContainer = styled.div`
-width: 22.5rem;
-  height: 6.375rem;
-  margin: 6.188rem 0 3.063rem;
-  padding: 1.3rem;
-  background-color: #e8222e;
+import Typography from '@mui/material/Typography';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import Paper from '@mui/material/Paper';
 
-`
-const PedidoAndamento = styled.p`
-width: 16rem;
-  height: 1.125rem;
-  margin: 0 0 0.125rem 1.5rem;
-  font-family: Montserrat;
-  font-size: 1rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.39px;
-  color: #ffffff;
-`
-const Restaurante = styled.p`
- width: 16rem;
-  height: 1.125rem;
-  margin: 0.5rem 0 0.5rem 1.5rem;
-  font-family: Montserrat;
-  font-size: 1rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.39px;
-  color: black;
-`
-const ValorCompra = styled.p`
- width: 16rem;
-  height: 1.125rem;
-  margin: 0.5rem 0 0 1.5rem;
-  font-family: Montserrat;
-  font-size: 1.2rem;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.39px;
-  color: black;
-`
-const Relogio = styled.img`
-position: relative;
-bottom: 3rem;
-width: 2rem;
-  height: 2rem;
-  margin: 0.125rem 1.5rem 0 0;
-  object-fit: contain;
-`
 const ContainerInfo = styled.div`
-margin-left:2rem;
 display:flex;
 flex-direction:column;
 justify-content: center;
 align-items: center;
-
+margin-right: 60px;
 `
 
 export default function Pedido(){
 const {states} = useContext(GlobalContext)
-const {carrinho , pedido} = states
-console.log(pedido)
+const {pedido} = states
     return(
-        <MainContainer>
-
-            <ContainerInfo>
-            <PedidoAndamento>Pedido em andamento</PedidoAndamento>
-            <Restaurante>{carrinho[0].info.name ? carrinho[0].info.name : <p></p> }</Restaurante>
-            <ValorCompra>SUBTOTAL {pedido} </ValorCompra>
-            </ContainerInfo>
-           <Relogio src={relogio} />
-        </MainContainer>
+        <Paper sx={{ 
+          position: 'fixed', 
+          bottom: '57px', 
+          left: 0, 
+          right: 0,
+          width: '100%',
+          height: '150px',
+          backgroundColor: '#e8222e',
+          overflow: 'hidden',          
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'center' }} elevation={3}>
+          <AccessTimeIcon sx={{ fontSize: 40 }}/>
+          <ContainerInfo>
+          <Typography sx={{color: 'white', textAlign: 'start'}}>Pedido em andamento</Typography>
+          <Typography sx={{textAlign: 'start'}}>{pedido.restaurantName}</Typography>
+          <Typography sx={{textAlign: 'start'}}>SUBTOTAL {pedido.totalPrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })} </Typography>
+          </ContainerInfo>
+        </Paper>
     )
 }
