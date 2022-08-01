@@ -17,20 +17,6 @@ justify-content:center;
   box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.25);
   background-color: #fff;
 `
-export const Titulo = styled.p`
-
-    width: 5.688rem;
-  height: 1.188rem;
-  font-family: Roboto;
-  font-size: 1rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.39px;
-  text-align: center;
-  color: black;
-`
  export const Restaurante = styled.div`
   width: 20.5rem;
   height: 1.125rem;

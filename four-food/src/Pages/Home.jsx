@@ -39,7 +39,7 @@ const Home = () => {
 
     const {states, setters} = useContext(GlobalContext)
     const {token, restaurants, pedido} = states
-    const {setRestaurants} = setters
+    const {setRestaurants, setPedido} = setters
 
     const [loading, setLoading] = useState(false)
     const [filtro, setFiltro] = useState([])
@@ -59,6 +59,23 @@ const Home = () => {
             setRestaurants(res.data.restaurants)
             console.log(res.data.restaurants);
             setLoading(false)
+        }).catch((err) => {
+            console.log(err);
+        })
+    },[])
+
+    useEffect(() => {
+
+        const url = "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/active-order"
+        const header = {
+            headers: {
+                auth: token
+            }
+        }
+        axios.get(url, header)
+        .then((res) => {
+            setPedido(res.data.order)
+            console.log(res.data.order);
         }).catch((err) => {
             console.log(err);
         })
@@ -164,7 +181,7 @@ const Home = () => {
                     <Typography>Não encontramos ¯\_(ツ)_/¯ </Typography>
                 </Box> 
             }
-            { pedido ? <CardPedido/> && <CardPedido/> : <div></div> && <div></div> }
+            { pedido && <CardPedido/> }
         </div>
     )
 }

@@ -97,6 +97,11 @@ export const Modal = styled.div`
 		justify-content: center;
 		align-items: center;
 		margin-bottom: 10px;
+		form {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
 		input {
 			margin-bottom: 10px;
 		}

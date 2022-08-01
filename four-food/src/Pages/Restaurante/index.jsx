@@ -56,7 +56,11 @@ const Restaurante = () => {
 				imagem={restaurante?.logoUrl}
 			/>
 			{restaurante?.products?.map((produto) => (
-				<CardDeProdutos key={produto.id} produto={produto}/>
+				<CardDeProdutos 
+				key={produto.id} 
+				produto={produto}
+				frete={restaurante?.shipping}
+				restaurante={restaurante}/>
 			))}
 		</Container>
 	)

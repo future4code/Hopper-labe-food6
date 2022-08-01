@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 const MenuBar = () => {
     const navigate = useNavigate()
     return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>    
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}>    
         <Box sx={{ width: '100vw'}}>
             <BottomNavigation>
                 <BottomNavigationAction onClick={() => {navigate('/')}} label="Home" icon={<HomeOutlinedIcon />} />

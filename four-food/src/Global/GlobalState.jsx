@@ -8,6 +8,7 @@ export const GlobalState = (props) => {
 	const [restaurants, setRestaurants] = useState([])
 	const [cart, setCart] = useState({
 		restaurant: {},
+		shipping: 0,
 		products: [],
 		paymentMethod: ""
 	})
@@ -28,7 +29,9 @@ export const GlobalState = (props) => {
 					'https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/profile',
 					header
 				)
-				.then((res) => {})
+				.then((res) => {
+					setUsuario(res.data)
+				})
 				.catch((err) => {
 					console.log(err)
 				})
