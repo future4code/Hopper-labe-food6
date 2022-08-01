@@ -64,7 +64,7 @@ const Perfil = () => {
                 </Box>
             </Box>
             <Box sx={{borderBottom: '2px solid #000000', padding: '20px', paddingBottom: '5px' }}>
-                <Typography sx={{fontSize: '1.1em'}}>Histórico de pedidos</Typography>
+                <Typography sx={{fontSize: '1.1em'}}>Histórico de pedidos.</Typography>
             </Box>
 
         
